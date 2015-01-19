@@ -4,7 +4,7 @@
 #include <string.h>
 typedef struct{
 	char name[100];
-	char usn[10];
+	char usn[20];
 }student;
 int main(void){
 	int fd,sa;
@@ -17,7 +17,7 @@ int main(void){
 		printf("Enter your name\n");
 		gets(s1.name);
 		printf("Enter the USN \n");
-		gets(s1.usn);
+		scanf("%s",s1.usn);
 		//printf("Size of struct is %d \n",sizeof(s1));
 		sa = write(fd,&s1,sizeof(student));
 	}
