@@ -14,7 +14,7 @@ int main(int argc, char **argv)
 	char name[1000];
 	if(argc<2)
 	{
-		printf("pass atleast two command line arguments\n");
+		printf("INvalid arguments\n");
 		exit(0);
 	}
 	else
@@ -43,7 +43,6 @@ int remove_directory(const char *path)
           char *buf;
           int len;
 
-          /* Skip the names "." and ".." as we don't want to recurse on them. */
           if (!strcmp(p->d_name, ".") || !strcmp(p->d_name, ".."))
           {
              continue;
@@ -57,20 +56,17 @@ int remove_directory(const char *path)
           {
              struct stat statbuf;
 			
-			 //output of the printf statement will be written to buf
-             snprintf(buf, len, "%s/%s", path, p->d_name);
+	   snprintf(buf, len, "%s/%s", path, p->d_name);
 			 
-			 printf("%s\n",buf);	
+			 printf("Deleting %s\n",buf);	
              if (!stat(buf, &statbuf))
              {
                 if (S_ISDIR(statbuf.st_mode))
                 {
-                   // for directory with contents making a recursive call
                    r2 = remove_directory(buf);
                 }
                 else
                 {
-                	// deleting the regular files inside the directory
                    r2 = unlink(buf);
                 }
              }
@@ -82,11 +78,13 @@ int remove_directory(const char *path)
       }
 
       closedir(d);
-   }
+   }else{
+	printf("Invalid Directory\n");
+}
+
 
    if (!r)
    {
-      // removing the directory which was made empty by the above recursive calls
       r = rmdir(path);
    }
 
